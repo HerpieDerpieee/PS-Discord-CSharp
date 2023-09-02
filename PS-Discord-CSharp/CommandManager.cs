@@ -17,7 +17,18 @@ public class CommandManager
         SlashCommandBuilder githubCommand = new SlashCommandBuilder();
         githubCommand.WithName("github");
         githubCommand.WithDescription("Get information about github stuff");
-        githubCommand.AddOption("username", ApplicationCommandOptionType.String, "The github username of the user", isRequired: true);
+        githubCommand.AddOption(new SlashCommandOptionBuilder()
+            .WithName("user")
+            .WithDescription("Lookup someones Github Profile")
+            .WithType(ApplicationCommandOptionType.SubCommand)
+            .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true));
+
+        githubCommand.AddOption(new SlashCommandOptionBuilder()
+            .WithName("repository")
+            .WithDescription("Lookup a Github Repository")
+            .WithType(ApplicationCommandOptionType.SubCommand)
+            .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true)
+            .AddOption("repository-name", ApplicationCommandOptionType.String, "The name of the repository you want to see", isRequired: true));
         commands.Add(githubCommand.Build());
 
         try
