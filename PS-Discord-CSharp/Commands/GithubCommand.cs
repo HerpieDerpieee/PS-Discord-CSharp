@@ -68,11 +68,9 @@ public class GithubCommand
                 repo_embed.WithTitle(repo_response.GetValue("full_name").ToString());
                 repo_embed.WithColor(Color.DarkBlue);
                 
-                repo_embed.AddField("__Latest Commit:__", $"**{committerName} committed:**\n{committedMessage}", false);
-                repo_embed.AddField("__Stargazer Count:__⠀", $"**{repo_response.GetValue("stargazers_count")}**", false);
-                repo_embed.AddField("__Open Issues:__", $"**{repo_response.GetValue("open_issues")}**", false);
-                repo_embed.AddField("⠀", "⠀", false);
-
+                repo_embed.AddField("__Latest Commit:__", $"**{committerName} committed:**\n{committedMessage}\n⠀", false);
+                repo_embed.AddField("__Stargazer Count:__⠀", $"**{repo_response.GetValue("stargazers_count")}**\n⠀", false);
+                repo_embed.AddField("__Open Issues:__", $"**{repo_response.GetValue("open_issues")}**\n⠀", false);
 
                 repo_embed.WithFooter($"Estimated Repository Size: {repo_response.GetValue("size")}Kb");
 
