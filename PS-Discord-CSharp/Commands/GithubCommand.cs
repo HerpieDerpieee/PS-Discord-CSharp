@@ -33,8 +33,8 @@ public class GithubCommand
                 embed.WithThumbnailUrl(response.GetValue("avatar_url").ToString());
                 embed.WithColor(Color.DarkBlue);
 
-                embed.AddField("⠀", response.GetValue("followers").ToString() + " Followers\n" + response.GetValue("following").ToString() + " Following", false);
-                embed.AddField("⠀", response.GetValue("public_repos").ToString() + " public repositories", false);
+                embed.AddField("⠀",$"**{response.GetValue("followers")}** Followers\n**{response.GetValue("following")}** Following", false);
+                embed.AddField("⠀", $"**{response.GetValue("public_repos")}** public repositories", false);
 
 
                 await ctx.RespondAsync(embed:embed.Build());
@@ -69,10 +69,10 @@ public class GithubCommand
                 repo_embed.WithColor(Color.DarkBlue);
                 
                 repo_embed.AddField("⠀", "⠀", false);
-                repo_embed.AddField("Latest Commit: ", $"**{committerName} committed:**\n{committedMessage}", false);
+                repo_embed.AddField("__Latest Commit:__", $"**{committerName} committed:**\n{committedMessage}", false);
 
-                repo_embed.AddField("⠀", $"Stargazer Count: {repo_response.GetValue("stargazers_count")}", false);
-                repo_embed.AddField("⠀", $"Open Issues: {repo_response.GetValue("open_issues")}", false);
+                repo_embed.AddField("__Stargazer Count:__⠀", $"**{repo_response.GetValue("stargazers_count")}**", false);
+                repo_embed.AddField("__Open Issues:__", $"**{repo_response.GetValue("open_issues")}**", false);
                 repo_embed.AddField("⠀", "⠀", false);
 
 
