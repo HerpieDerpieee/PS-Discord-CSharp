@@ -58,23 +58,23 @@ public class GithubCommand
                 }
 
                 JObject commitData = (JObject) commit_response.GetValue("commit");
-                JObject commitUserData = (JObject)commitData.GetValue("committer");
+                JObject commitUserData = (JObject)commit_response.GetValue("committer");
 
-                string committerName = commitUserData.GetValue("name").ToString();
-                string committerEmail = commitUserData.GetValue("email").ToString();
+                string committerName = commitUserData.GetValue("login").ToString();
                 string committedMessage = commitData.GetValue("message").ToString();
 
                 EmbedBuilder repo_embed = new EmbedBuilder();
                 repo_embed.WithUrl(repo_response.GetValue("html_url").ToString());
                 repo_embed.WithTitle(repo_response.GetValue("full_name").ToString());
-                repo_embed.WithDescription("Most Used Language: "+repo_response.GetValue("language").ToString());
                 repo_embed.WithColor(Color.DarkBlue);
+                
+                repo_embed.AddField("⠀", "⠀", false);
+                repo_embed.AddField("Latest Commit: ", $"**{committerName} committed:**\n{committedMessage}", false);
 
                 repo_embed.AddField("⠀", $"Stargazer Count: {repo_response.GetValue("stargazers_count")}", false);
                 repo_embed.AddField("⠀", $"Open Issues: {repo_response.GetValue("open_issues")}", false);
-                
                 repo_embed.AddField("⠀", "⠀", false);
-                repo_embed.AddField("Latest Commit: ", $"{committerName}  ({committerEmail})\n{committedMessage}", false);
+
 
                 repo_embed.WithFooter($"Estimated Repository Size: {repo_response.GetValue("size")}Kb");
 
