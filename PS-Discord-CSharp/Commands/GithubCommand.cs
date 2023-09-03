@@ -58,7 +58,7 @@ public class GithubCommand
                 }
 
                 JObject commitData = (JObject) commit_response.GetValue("commit");
-                JObject commitUserData = (JObject)commit_response.GetValue("committer");
+                JObject commitUserData = (JObject)commit_response.GetValue("author");
 
                 string committerName = commitUserData.GetValue("login").ToString();
                 string committedMessage = commitData.GetValue("message").ToString();
@@ -68,9 +68,7 @@ public class GithubCommand
                 repo_embed.WithTitle(repo_response.GetValue("full_name").ToString());
                 repo_embed.WithColor(Color.DarkBlue);
                 
-                repo_embed.AddField("⠀", "⠀", false);
                 repo_embed.AddField("__Latest Commit:__", $"**{committerName} committed:**\n{committedMessage}", false);
-
                 repo_embed.AddField("__Stargazer Count:__⠀", $"**{repo_response.GetValue("stargazers_count")}**", false);
                 repo_embed.AddField("__Open Issues:__", $"**{repo_response.GetValue("open_issues")}**", false);
                 repo_embed.AddField("⠀", "⠀", false);
