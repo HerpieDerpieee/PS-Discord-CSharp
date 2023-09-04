@@ -66,6 +66,10 @@ public class GithubCommand
                 EmbedBuilder repo_embed = new EmbedBuilder();
                 repo_embed.WithUrl(repo_response.GetValue("html_url").ToString());
                 repo_embed.WithTitle(repo_response.GetValue("full_name").ToString());
+                if (repo_response.GetValue("description") != null)
+                {
+                    repo_embed.WithDescription(repo_response.GetValue("description").ToString()+ "\n⠀");
+                }
                 repo_embed.WithColor(Color.DarkBlue);
                 
                 repo_embed.AddField("__Latest Commit:__", $"**{committerName} committed:**\n{committedMessage}\n⠀", false);

@@ -14,6 +14,13 @@ public class CommandManager
 
         await Console.Out.WriteLineAsync("Creating Commands");
 
+        //HELP COMMAND HERE ----------------------
+        SlashCommandBuilder helpCommand = new SlashCommandBuilder();
+        helpCommand.WithName("help");
+        helpCommand.WithDescription("Get information about the commands of this bot!");
+        commands.Add(helpCommand.Build());
+
+        //GITHUB COMMAND HERE ----------------------
         SlashCommandBuilder githubCommand = new SlashCommandBuilder();
         githubCommand.WithName("github");
         githubCommand.WithDescription("Get information about github stuff");
@@ -22,7 +29,6 @@ public class CommandManager
             .WithDescription("Lookup someones Github Profile")
             .WithType(ApplicationCommandOptionType.SubCommand)
             .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true));
-
         githubCommand.AddOption(new SlashCommandOptionBuilder()
             .WithName("repository")
             .WithDescription("Lookup a Github Repository")
@@ -30,6 +36,9 @@ public class CommandManager
             .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true)
             .AddOption("repository-name", ApplicationCommandOptionType.String, "The name of the repository you want to see", isRequired: true));
         commands.Add(githubCommand.Build());
+
+
+
 
         try
         {
@@ -49,14 +58,20 @@ public class CommandManager
     {
         switch(command.CommandName)
         {
-            default:
-                await Console.Out.WriteLineAsync("Invalid Command!");
-                break;
+        default:
+            await Console.Out.WriteLineAsync("Invalid Command!");
+            break;
 
-            case "github":
-                GithubCommand cmd = new GithubCommand();
-                _ = cmd.RunCommand(command);
-                break;
+        case "help":
+                HelpCommand helpCommand = new HelpCommand();
+                _ = helpCommand.RunCommand(command);
+            break;
+             
+
+        case "github":
+            GithubCommand githubCommand = new GithubCommand();
+            _ = githubCommand.RunCommand(command);
+            break;
         }
     }
 }
