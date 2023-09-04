@@ -1,12 +1,6 @@
 ﻿using Discord.WebSocket;
 using Discord;
-using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 public class HelpCommand
 {
@@ -16,6 +10,13 @@ public class HelpCommand
         embed.WithTitle("Help!");
         embed.WithDescription("\n⠀");
         embed.WithColor(Color.DarkBlue);
+
+        //PING HELP SECTION
+        embed.AddField("/ping",
+                        "Shows you the current latency of the discord bot.\n" +
+                        "**Example: /ping**",
+                        false
+        );
 
         //GITHUB HELP SECTION
         embed.AddField( "/github user {username}", 

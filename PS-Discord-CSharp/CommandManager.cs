@@ -8,6 +8,12 @@ using System.Collections;
 
 public class CommandManager
 {
+    DiscordSocketClient bot;
+
+    public CommandManager( DiscordSocketClient bot )
+    {
+        this.bot = bot;
+    }
     public async Task RegisterCommands(DiscordSocketClient client)
     {
         List<SlashCommandProperties> commands = new();
@@ -19,6 +25,12 @@ public class CommandManager
         helpCommand.WithName("help");
         helpCommand.WithDescription("Get information about the commands of this bot!");
         commands.Add(helpCommand.Build());
+
+        //PING COMMAND HERE ----------------------
+        SlashCommandBuilder pingCommand = new SlashCommandBuilder();
+        pingCommand.WithName("ping");
+        pingCommand.WithDescription("Tells you the latency of the discord bot");
+        commands.Add(pingCommand.Build());
 
         //GITHUB COMMAND HERE ----------------------
         SlashCommandBuilder githubCommand = new SlashCommandBuilder();
@@ -37,7 +49,7 @@ public class CommandManager
             .AddOption("repository-name", ApplicationCommandOptionType.String, "The name of the repository you want to see", isRequired: true));
         commands.Add(githubCommand.Build());
 
-
+        
 
 
         try
@@ -66,7 +78,11 @@ public class CommandManager
                 HelpCommand helpCommand = new HelpCommand();
                 _ = helpCommand.RunCommand(command);
             break;
-             
+
+        case "ping":
+            PingCommand pingCommand = new PingCommand(bot);
+            _ = pingCommand.RunCommand(command);
+            break;
 
         case "github":
             GithubCommand githubCommand = new GithubCommand();
