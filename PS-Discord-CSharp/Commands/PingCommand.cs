@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.WebSocket;
+using System.Net.NetworkInformation;
 
 public class PingCommand
 {
@@ -19,6 +20,6 @@ public class PingCommand
         embed.WithDescription($"**{ping}**");
         embed.WithColor(Color.Green);
 
-        await ctx.RespondAsync(embed:embed.Build());
+        await ctx.RespondAsync(embed: embed.Build());
     }
 }
