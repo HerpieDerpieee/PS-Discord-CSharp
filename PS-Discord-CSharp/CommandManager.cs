@@ -52,19 +52,7 @@ public class CommandManager
                     "The github username of the person you want to see", isRequired: true)
                 .AddOption("repository-name", ApplicationCommandOptionType.String,
                     "The name of the repository you want to see", isRequired: true));
-
-        commands.Add(githubCommand.Build());
-
-        //USERINFO COMMAND ------------------------
-        SlashCommandBuilder userinfoCommand = new SlashCommandBuilder()
-            .WithName("user-info")
-            .WithDescription("Lookup some information about the specified user")
-            .AddOption(new SlashCommandOptionBuilder()
-                .WithName("user")
-                .WithDescription("The user you want to look up")
-                .WithType(ApplicationCommandOptionType.User)
-                .WithRequired(true));
-        commands.Add(userinfoCommand.Build());
+        
 
     try
 
@@ -83,31 +71,26 @@ public class CommandManager
 
     public async Task SlashCommandHandler(SocketSlashCommand command)
     {
-        switch(command.CommandName)
+        switch (command.CommandName)
         {
-        default:
-            await Console.Out.WriteLineAsync("Invalid Command!");
-            break;
+            default:
+                await Console.Out.WriteLineAsync("Invalid Command!");
+                break;
 
-        case "help":
+            case "help":
                 HelpCommand helpCommand = new HelpCommand();
                 _ = helpCommand.RunCommand(command);
-            break;
+                break;
 
-        case "ping":
-            PingCommand pingCommand = new PingCommand(bot);
-            _ = pingCommand.RunCommand(command);
-            break;
+            case "ping":
+                PingCommand pingCommand = new PingCommand(bot);
+                _ = pingCommand.RunCommand(command);
+                break;
 
-        case "github":
-            GithubCommand githubCommand = new GithubCommand();
-            _ = githubCommand.RunCommand(command);
-            break;
-        
-        case "user-info":
-            UserInfoCommand userInfoCommand = new UserInfoCommand();
-            _ = userInfoCommand.runCommand(command);
-            break;
+            case "github":
+                GithubCommand githubCommand = new GithubCommand();
+                _ = githubCommand.RunCommand(command);
+                break;
         }
     }
 }
