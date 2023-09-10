@@ -4,7 +4,6 @@ using Discord;
 using Discord.Net;
 using Discord.WebSocket;
 using Newtonsoft.Json;
-using System.Collections;
 
 public class CommandManager
 {
@@ -52,8 +51,20 @@ public class CommandManager
                     "The github username of the person you want to see", isRequired: true)
                 .AddOption("repository-name", ApplicationCommandOptionType.String,
                     "The name of the repository you want to see", isRequired: true));
+        commands.Add(githubCommand.Build());
         
-
+        // POKEMON COMMAND HERE ----------------------
+        SlashCommandBuilder pokemonCommand = new SlashCommandBuilder()
+            .WithName("pokemon")
+            .WithDescription("Pokemom stuff")
+            .AddOption(new SlashCommandOptionBuilder()
+                .WithName("catch")
+                .WithDescription("catch a random pokemon")
+                .WithType(ApplicationCommandOptionType.SubCommand));
+        commands.Add(pokemonCommand.Build());
+            
+        
+        
     try
 
     {
@@ -90,6 +101,11 @@ public class CommandManager
             case "github":
                 GithubCommand githubCommand = new GithubCommand();
                 _ = githubCommand.RunCommand(command);
+                break;
+            
+            case "pokemon":
+                PokemonCommand pokemonCommand = new PokemonCommand();
+                _ = pokemonCommand.RunCommand(command);
                 break;
         }
     }
