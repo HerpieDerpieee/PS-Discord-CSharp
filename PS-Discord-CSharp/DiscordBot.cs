@@ -7,9 +7,9 @@ public class DiscordBot
 
     private DiscordSocketClient client;
 
-    public async Task MainAsync()
+    private async Task MainAsync()
     {
-
+        Console.WriteLine("Starting Discord Bot...");
         client = new DiscordSocketClient();
 
         client.Ready += OnReady;

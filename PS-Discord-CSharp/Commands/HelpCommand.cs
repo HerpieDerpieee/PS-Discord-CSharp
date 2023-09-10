@@ -30,6 +30,16 @@ public class HelpCommand
                         "**Example:** /github repository microsoft vscode\n⠀",
                         false
         );
+        
+        //USERINFO HELP SECTION
+        embed.AddField("/user-info {user}",
+                            "{user} = The discord user you want too see some stuff about\n" +
+                            "**Example:** /user-info herpiederpiee",
+                            false
+
+
+        );
+        
 
 
         await ctx.RespondAsync(embed: embed.Build());

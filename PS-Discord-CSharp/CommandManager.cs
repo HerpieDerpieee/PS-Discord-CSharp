@@ -14,6 +14,7 @@ public class CommandManager
     {
         this.bot = bot;
     }
+
     public async Task RegisterCommands(DiscordSocketClient client)
     {
         List<SlashCommandProperties> commands = new();
@@ -41,21 +42,33 @@ public class CommandManager
                 .WithName("user")
                 .WithDescription("Lookup someones Github Profile")
                 .WithType(ApplicationCommandOptionType.SubCommand)
-                .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true))
+                .AddOption("username", ApplicationCommandOptionType.String,
+                    "The github username of the person you want to see", isRequired: true))
             .AddOption(new SlashCommandOptionBuilder()
                 .WithName("repository")
                 .WithDescription("Lookup a Github Repository")
                 .WithType(ApplicationCommandOptionType.SubCommand)
-                .AddOption("username", ApplicationCommandOptionType.String, "The github username of the person you want to see", isRequired: true)
-                .AddOption("repository-name", ApplicationCommandOptionType.String, "The name of the repository you want to see", isRequired: true));
+                .AddOption("username", ApplicationCommandOptionType.String,
+                    "The github username of the person you want to see", isRequired: true)
+                .AddOption("repository-name", ApplicationCommandOptionType.String,
+                    "The name of the repository you want to see", isRequired: true));
 
         commands.Add(githubCommand.Build());
 
-        
+        //USERINFO COMMAND ------------------------
+        SlashCommandBuilder userinfoCommand = new SlashCommandBuilder()
+            .WithName("user-info")
+            .WithDescription("Lookup some information about the specified user")
+            .AddOption(new SlashCommandOptionBuilder()
+                .WithName("user")
+                .WithDescription("The user you want to look up")
+                .WithType(ApplicationCommandOptionType.User)
+                .WithRequired(true));
+        commands.Add(userinfoCommand.Build());
 
+    try
 
-        try
-        {
+    {
             await client.BulkOverwriteGlobalApplicationCommandsAsync(commands.ToArray());
             await Console.Out.WriteLineAsync("Succesfully Created Commands");
 
@@ -89,6 +102,11 @@ public class CommandManager
         case "github":
             GithubCommand githubCommand = new GithubCommand();
             _ = githubCommand.RunCommand(command);
+            break;
+        
+        case "user-info":
+            UserInfoCommand userInfoCommand = new UserInfoCommand();
+            _ = userInfoCommand.runCommand(command);
             break;
         }
     }
