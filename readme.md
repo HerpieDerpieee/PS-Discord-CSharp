@@ -10,7 +10,7 @@ Deze toont wat interresante user informatie zoals volgers, aantal public repos
 Deze toont wat interresante repository informatie zoals laatste commit, aantal stars, etc.
 
 
-Ook zijn er wat commands gebaseerd op de Pokémon tradibg card game in progress
+Ook zijn er wat commands gebaseerd op de Pokémon trading card game in progress
 
 - pokemon catch
 Deze vangt een willekeurige pokémon
